@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './AboutPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import { FaLightbulb , FaBalanceScale , FaUsers, FaLinkedinIn  } from 'react-icons/fa';
+import { FaLightbulb , FaBalanceScale , FaUsers, FaLinkedinIn, FaGlobe } from 'react-icons/fa';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -50,7 +50,8 @@ const AboutPage = () => {
             title: "Senior Consultant,",
             specialty: "E-Commerce Solutions",
             socials : [
-                { icon : <FaLinkedinIn size={20} />, href: 'https://www.linkedin.com/in/phelanmarkw' }
+                { icon : <FaLinkedinIn size={20} />, href: 'https://www.linkedin.com/in/phelanmarkw' },
+                { icon: <FaGlobe size={20} />, href: 'https://www.thephelanfocus.com/' }
             ]
         },
         {
@@ -59,7 +60,8 @@ const AboutPage = () => {
             title: "Senior Consultant,",
             specialty: "Non Profit Development",
             socials : [
-                { icon : <FaLinkedinIn size={20} />, href: 'https://www.linkedin.com/in/klseaton' }
+                { icon : <FaLinkedinIn size={20} />, href: 'https://www.linkedin.com/in/klseaton' },
+                { icon: <FaGlobe size={20} />, href: 'https://www.klseatonconsulting.com/' }
             ]
         },
         {
@@ -68,7 +70,8 @@ const AboutPage = () => {
             title: "Senior Consultant,",
             specialty: "Tech + Software Solutions",
             socials : [
-                { icon : <FaLinkedinIn size={20} />, href: 'https://www.linkedin.com/in/donavonroberson' }
+                { icon : <FaLinkedinIn size={20} />, href: 'https://www.linkedin.com/in/donavonroberson' },
+                { icon: <FaGlobe size={20} />, href: 'https://medium.com/@thejourneyofthedreamer' }
             ]
         },
         {
@@ -77,7 +80,8 @@ const AboutPage = () => {
             title: "Senior Consultant,",
             specialty: "Health + Wellness Solutions",
             socials : [
-                { icon : <FaLinkedinIn size={20} />, href: 'https://www.linkedin.com/in/viamelissa' }
+                { icon : <FaLinkedinIn size={20} />, href: 'https://www.linkedin.com/in/viamelissa' },
+                { icon: <FaGlobe size={20} />, href: 'https://www.viaskitchen.com/' }
             ]
         },
     ]
@@ -222,7 +226,7 @@ const AboutPage = () => {
                                         <h6>{member.specialty}</h6>
                                         <div className="mt-auto">
                                             {member.socials.map((link, index) => (
-                                                <a href={link.href} className='text-yellow social-icons' key={index} target='_blank' rel="noopener noreferrer">
+                                                <a href={link.href} className='text-yellow social-icons mx-2' key={index} target='_blank' rel="noopener noreferrer">
                                                     {link.icon}
                                                 </a>
                                             ))}
