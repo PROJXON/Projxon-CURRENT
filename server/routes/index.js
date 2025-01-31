@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const blogRoute = require('./blogs');
 const userRoute = require('./users');
+const emailRoute = require('./emails');
 const clientRoute = require('./clients');
 const authRoute = require('./authRoutes');
-
 
 router.get('/', (req, res) => {
     res.send('API is working');
@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
 
 router.use('/blogs', blogRoute);
 // router.use('/users', userRoute);
+router.use('/emails', emailRoute);
 
 router.use('/clients', clientRoute);
 
