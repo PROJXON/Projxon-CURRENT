@@ -9,7 +9,6 @@ import { Container, Row, Col, Carousel, Card  } from 'react-bootstrap';
 import { LuTrendingUp, LuUsers, LuLightbulb } from "react-icons/lu";
 import { FaQuoteLeft, FaMobile, FaCogs, FaProjectDiagram, FaShoppingCart, FaLaptopCode } from 'react-icons/fa';
 
-import client from '../assets/homepage/default-pic.jpg'
 import market from '../assets/homepage/services-img/market.webp'
 import eccom from '../assets/homepage/services-img/ecom.webp'
 import business from '../assets/homepage/services-img/business.webp'
