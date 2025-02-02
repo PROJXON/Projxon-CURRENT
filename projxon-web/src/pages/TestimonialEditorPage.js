@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { fetchClients, addClient, deleteClient } from '../services/clientService';
 import './TestimonialEditorPage.css';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../services/loginService';
+import ImageUpload from '../components/ImageUpload';
 
 const TestimonialEditorPage = () => {
   const [clients, setClients] = useState([]);
   const [currentTestIndex, setCurrentTestIndex] = useState(0);
   const [newTestimonial, setNewTestimonial] = useState({ image: '', quote: '', name: '', title: '' });
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+
+  const authToken = localStorage.getItem('authToken');
 
   const handleLogout = () => {
     logout();
@@ -23,7 +27,6 @@ const TestimonialEditorPage = () => {
     loadClients();
   }, []);
 
-  // Function to display current testimonial
   const getCurrentClient = () => {
     if (clients.length === 0) {
       return { image: '', quote: 'No testimonials available.', name: '', title: '' };
@@ -31,7 +34,6 @@ const TestimonialEditorPage = () => {
     return clients[currentTestIndex];
   };
 
-  // Navigate testimonials
   const handlePrev = () => {
     if (clients.length > 0) {
       setCurrentTestIndex((prevIndex) => (prevIndex - 1 + clients.length) % clients.length);
@@ -44,7 +46,6 @@ const TestimonialEditorPage = () => {
     }
   };
 
-  // Delete current testimonial
   const handleDelete = async () => {
     if (clients.length === 0) return;
 
@@ -55,21 +56,19 @@ const TestimonialEditorPage = () => {
       if (success) {
         const updatedClients = await fetchClients();
         setClients(updatedClients);
-        setCurrentTestIndex(Math.max(0, currentTestIndex - 1)); // Prevent out-of-bounds index
+        setCurrentTestIndex(Math.max(0, currentTestIndex - 1)); 
       }
     } catch (error) {
       console.error("Error deleting client:", error);
     }
   };
 
-  // Handle input changes
   const handleInputChange = (e) => {
     setNewTestimonial({ ...newTestimonial, [e.target.name]: e.target.value });
   };
 
-  // Add new testimonial
   const handleAdd = async () => {
-    if (!newTestimonial.quote || !newTestimonial.name || !newTestimonial.title) {
+    if (!newTestimonial.image || !newTestimonial.quote || !newTestimonial.name || !newTestimonial.title) {
       alert("Please fill out relevant fields before adding a new entry.");
       return;
     }
@@ -79,9 +78,19 @@ const TestimonialEditorPage = () => {
     if (addedClient && addedClient.id) {
       const updatedClients = await fetchClients();
       setClients(updatedClients);
-      setCurrentTestIndex(updatedClients.length - 1); // Move to the newly added entry
+      setCurrentTestIndex(updatedClients.length - 1); 
       setNewTestimonial({ image: '', quote: '', name: '', title: '' });
+      if (fileInputRef.current) {
+        fileInputRef.current.value = null;
+      }
     }
+  };
+
+  const handleImageUpload = (imageUrl) => {
+    setNewTestimonial((prevTestimonial) => ({
+      ...prevTestimonial,
+      image: imageUrl,
+    }));
   };
 
   return (
@@ -99,7 +108,7 @@ const TestimonialEditorPage = () => {
         <button id="deleteButton" onClick={handleDelete}>Delete Current Entry</button>
       </div>
 
-      <textarea name="image" value={newTestimonial.image} onChange={handleInputChange} placeholder="Image URL"></textarea>
+      <ImageUpload authToken={authToken} onUploadSuccess={handleImageUpload} ref={fileInputRef}/>
       <textarea name="quote" value={newTestimonial.quote} onChange={handleInputChange} placeholder="Quote"></textarea>
       <textarea name="name" value={newTestimonial.name} onChange={handleInputChange} placeholder="Name"></textarea>
       <textarea name="title" value={newTestimonial.title} onChange={handleInputChange} placeholder="Title"></textarea>
