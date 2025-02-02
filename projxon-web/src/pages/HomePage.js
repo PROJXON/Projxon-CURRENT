@@ -21,7 +21,7 @@ import CustomButton from '../components/CustomButton';
 import CallToAction from '../components/CallToAction';
 import { fetchBlogs } from '../services/blogService'
 import { fetchClients } from '../services/clientService';
-
+import defaultClientImage from '../assets/homepage/default-pic.jpg';
 
 AOS.init();
 
@@ -275,7 +275,7 @@ const HomePage = () => {
                         {clients.map((client, index) => (
                             <Carousel.Item key={index}>
                                 <Carousel.Caption>
-                                    <img className="testimonial-img mb-5" src={client.image} alt={`${client.name}`} loading='lazy' />       
+                                    <img className="testimonial-img mb-5" src={defaultClientImage} alt={`${client.name}`} loading='lazy' />       
                                     <p className="mb-4 fs-5"><FaQuoteLeft className="quote-icon" size={25}/>{client.quote}</p>
                                     <h3 className='fs-5'>{client.name}</h3>
                                     <span>{client.title}</span>

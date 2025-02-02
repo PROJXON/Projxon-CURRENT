@@ -69,8 +69,8 @@ const TestimonialEditorPage = () => {
 
   // Add new testimonial
   const handleAdd = async () => {
-    if (!newTestimonial.image || !newTestimonial.quote || !newTestimonial.name || !newTestimonial.title) {
-      alert("Please fill out all fields before adding a new entry.");
+    if (!newTestimonial.quote || !newTestimonial.name || !newTestimonial.title) {
+      alert("Please fill out relevant fields before adding a new entry.");
       return;
     }
 
