@@ -13,7 +13,7 @@ router.get('/callback', async (req, res) => {
       code: authorizationCode,
       client_id: process.env.EMAIL_CLIENT_ID,
       client_secret: process.env.EMAIL_CLIENT_SECRET,
-      redirect_uri: 'https://api.projxon.com/oauth2/callback',
+      redirect_uri: EMAIL_REDIRECT_URI,
       grant_type: 'authorization_code',
     });
 
