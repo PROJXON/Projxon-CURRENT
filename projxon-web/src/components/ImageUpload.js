@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const ImageUpload = React.forwardRef(({ onFileSelect }, ref) => {
-  const [file, setFile] = useState(null);
-
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    setFile(selectedFile);
     onFileSelect(selectedFile)
   };
 

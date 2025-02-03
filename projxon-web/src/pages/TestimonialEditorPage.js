@@ -12,6 +12,7 @@ const TestimonialEditorPage = () => {
   const [newTestimonial, setNewTestimonial] = useState({ image: '', quote: '', name: '', title: '' });
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const [file, setFile] = useState(null);
 
   const authToken = localStorage.getItem('authToken');
 
@@ -69,14 +70,14 @@ const TestimonialEditorPage = () => {
   };
 
   const handleAdd = async () => {
-    if (!newTestimonial.image || !newTestimonial.quote || !newTestimonial.name || !newTestimonial.title) {
+    if (!file || !newTestimonial.quote || !newTestimonial.name || !newTestimonial.title) {
       alert("Please fill out relevant fields before adding a new entry.");
       return;
     }
 
     try {
       const formData = new FormData();
-      formData.append('file', newTestimonial.image);
+      formData.append('file', file);
   
       const response = await axios.post('/api/upload', formData, {
         headers: {
@@ -87,13 +88,19 @@ const TestimonialEditorPage = () => {
 
       const imageUrl = response.data.url;
 
-      const addedClient = await addClient({ ...newTestimonial, image: imageUrl });
+      const testimonialWithImage = {
+        ...newTestimonial,
+        image: imageUrl, 
+      };
+
+      const addedClient = await addClient(testimonialWithImage);
 
       if (addedClient && addedClient.id) {
         const updatedClients = await fetchClients();
         setClients(updatedClients);
         setCurrentTestIndex(updatedClients.length - 1); 
         setNewTestimonial({ image: '', quote: '', name: '', title: '' });
+        setFile(null);
         if (fileInputRef.current) {
           fileInputRef.current.value = null;
         }
@@ -118,7 +125,7 @@ const TestimonialEditorPage = () => {
         <button id="deleteButton" onClick={handleDelete}>Delete Current Entry</button>
       </div>
 
-      <ImageUpload ref={fileInputRef} onFileSelect={(imageUrl) => setNewTestimonial((prev) => ({ ...prev, image: imageUrl }))}/>
+      <ImageUpload ref={fileInputRef} onFileSelect={(file) => setFile(file)}/>
       <textarea name="quote" value={newTestimonial.quote} onChange={handleInputChange} placeholder="Quote"></textarea>
       <textarea name="name" value={newTestimonial.name} onChange={handleInputChange} placeholder="Name"></textarea>
       <textarea name="title" value={newTestimonial.title} onChange={handleInputChange} placeholder="Title"></textarea>
