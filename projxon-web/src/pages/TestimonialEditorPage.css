@@ -56,3 +56,7 @@ button {
 button:hover {
   background-color: rgb(234 179 8 / 1) !important;
 }
+
+input[type="file"] {
+  margin-bottom: 20px; 
+}
