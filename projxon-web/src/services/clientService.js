@@ -13,7 +13,6 @@ export const fetchClient = async (id) => {
 export const addClient = async (clientData) => {
     try {
         const token = localStorage.getItem('authToken'); 
-        console.log("🛠 Sending Token:", token); // Debug log
 
         if (!token) {
             throw new Error("Unauthorized - No token found");

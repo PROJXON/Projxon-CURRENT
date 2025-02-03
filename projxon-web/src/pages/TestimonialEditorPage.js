@@ -4,6 +4,7 @@ import './TestimonialEditorPage.css';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../services/loginService';
 import ImageUpload from '../components/ImageUpload';
+import axios from 'axios';
 
 const TestimonialEditorPage = () => {
   const [clients, setClients] = useState([]);
@@ -73,24 +74,33 @@ const TestimonialEditorPage = () => {
       return;
     }
 
-    const addedClient = await addClient(newTestimonial);
+    try {
+      const formData = new FormData();
+      formData.append('file', newTestimonial.image);
+  
+      const response = await axios.post('/api/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
 
-    if (addedClient && addedClient.id) {
-      const updatedClients = await fetchClients();
-      setClients(updatedClients);
-      setCurrentTestIndex(updatedClients.length - 1); 
-      setNewTestimonial({ image: '', quote: '', name: '', title: '' });
-      if (fileInputRef.current) {
-        fileInputRef.current.value = null;
+      const imageUrl = response.data.url;
+
+      const addedClient = await addClient({ ...newTestimonial, image: imageUrl });
+
+      if (addedClient && addedClient.id) {
+        const updatedClients = await fetchClients();
+        setClients(updatedClients);
+        setCurrentTestIndex(updatedClients.length - 1); 
+        setNewTestimonial({ image: '', quote: '', name: '', title: '' });
+        if (fileInputRef.current) {
+          fileInputRef.current.value = null;
+        }
       }
+    } catch (error) {
+      console.error("Error adding testimonial", error);
     }
-  };
-
-  const handleImageUpload = (imageUrl) => {
-    setNewTestimonial((prevTestimonial) => ({
-      ...prevTestimonial,
-      image: imageUrl,
-    }));
   };
 
   return (
@@ -108,7 +118,7 @@ const TestimonialEditorPage = () => {
         <button id="deleteButton" onClick={handleDelete}>Delete Current Entry</button>
       </div>
 
-      <ImageUpload authToken={authToken} onUploadSuccess={handleImageUpload} ref={fileInputRef}/>
+      <ImageUpload ref={fileInputRef} onFileSelect={(imageUrl) => setNewTestimonial((prev) => ({ ...prev, image: imageUrl }))}/>
       <textarea name="quote" value={newTestimonial.quote} onChange={handleInputChange} placeholder="Quote"></textarea>
       <textarea name="name" value={newTestimonial.name} onChange={handleInputChange} placeholder="Name"></textarea>
       <textarea name="title" value={newTestimonial.title} onChange={handleInputChange} placeholder="Title"></textarea>
