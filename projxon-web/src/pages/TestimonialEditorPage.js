@@ -4,7 +4,7 @@ import './TestimonialEditorPage.css';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../services/loginService';
 import ImageUpload from '../components/ImageUpload';
-import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 
 const TestimonialEditorPage = () => {
   const [clients, setClients] = useState([]);
@@ -79,7 +79,7 @@ const TestimonialEditorPage = () => {
       const formData = new FormData();
       formData.append('file', file);
   
-      const response = await axios.post('/api/upload', formData, {
+      const response = await axiosInstance.post('/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${authToken}`,
