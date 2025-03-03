@@ -42,5 +42,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- Note: Login and editor pages are excluded as they are not meant for public indexing -->
+  <url>
+    <loc>https://www.projxon.com/research/from-overwhelmed-to-empowered-how-projxons-internship-changed-my-life</loc>
+    <lastmod>2025-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

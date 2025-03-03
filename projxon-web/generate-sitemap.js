@@ -12,15 +12,15 @@ const blogPosts = [
   // Add new blog posts here as you create them
 ];
 
-// Static pages
+// Static pages with more frequent change frequency
 const staticPages = [
-  { url: '/', priority: '1.0', changefreq: 'weekly' },
-  { url: '/services', priority: '0.8', changefreq: 'monthly' },
-  { url: '/about', priority: '0.7', changefreq: 'monthly' },
-  { url: '/contact', priority: '0.7', changefreq: 'monthly' },
-  { url: '/partnership', priority: '0.7', changefreq: 'monthly' },
-  { url: '/careers', priority: '0.7', changefreq: 'monthly' },
-  { url: '/research', priority: '0.8', changefreq: 'weekly' }
+  { url: '/', priority: '1.0', changefreq: 'daily' },
+  { url: '/services', priority: '0.8', changefreq: 'weekly' },
+  { url: '/about', priority: '0.7', changefreq: 'weekly' },
+  { url: '/contact', priority: '0.7', changefreq: 'weekly' },
+  { url: '/partnership', priority: '0.7', changefreq: 'weekly' },
+  { url: '/careers', priority: '0.7', changefreq: 'weekly' },
+  { url: '/research', priority: '0.8', changefreq: 'daily' }
 ];
 
 // Generate sitemap XML
@@ -42,7 +42,7 @@ blogPosts.forEach(post => {
   sitemap += '  <url>\n';
   sitemap += `    <loc>https://www.projxon.com/research/${post.id}</loc>\n`;
   sitemap += `    <lastmod>${post.lastModified}</lastmod>\n`;
-  sitemap += '    <changefreq>monthly</changefreq>\n';
+  sitemap += '    <changefreq>weekly</changefreq>\n';
   sitemap += '    <priority>0.6</priority>\n';
   sitemap += '  </url>\n';
 });
