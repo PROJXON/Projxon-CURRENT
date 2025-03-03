@@ -36,7 +36,9 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "deploy": "gh-pages -d build"
+        "generate-sitemap": "node generate-sitemap.js",
+        "prebuild": "npm run generate-sitemap",
+        "deploy": "aws s3 sync ./build s3://www.projxon.com --delete"
     },
     "eslintConfig": {
         "extends": [
