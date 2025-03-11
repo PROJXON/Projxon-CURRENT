@@ -177,7 +177,7 @@ const AboutPage = () => {
                             <section className='w-100'>
                                 <h2 className='fs-1 mb-4 text-uppercase fw-bold'>Our Vision</h2>
                                 <p className='fs-5'>
-                                    We envision a world where businesses can easily access the expertise and tools they need to thrive in a rapidly changing environment. By offering cutting-edge solutions and unparalleled support, we aim to be the go-to partner for businesses looking to innovate, grow, and succeed.
+                                    We envision a world where businesses easily access the expertise and tools they need to thrive in a rapidly changing environment. By offering cutting-edge solutions and unparalleled support, we aim to be the go-to partner for businesses looking to innovate, grow, and succeed.
                                 </p>
                             </section>
                         </Col>
